@@ -129,6 +129,19 @@ def get_longform_df(result_set, timezone='US/Eastern'):
 def get_lfdf(fieldname, start_time, end_time, device_ids=None, timezone='US/Eastern'):
     return get_longform_df(get_rs_from_influx(fieldname, start_time, end_time, device_ids=device_ids), timezone)
 
+def get_deviceid_datapoint_countmap(fieldname, start_time, end_time, device_ids=None, timezone='US/Eastern'):
+    x = inf.Influx()
+    a = x.get_time_query_from_datetime(start_time, end_time)
+
+    if device_ids is not None:
+        a += x.get_device_query_adds(device_ids)
+
+    result_set = x.get_deviceid_datapoint_count(fieldname, a)
+    count_map = {}
+    for x in result_set.items():
+        count_map[str(x[0][1]["device_id"])] = next(x[1])["count"]
+    
+    return count_map
 
 def get_cache_lfdf(fieldname, start_time, end_time, device_ids=None):
     filename = get_cache_filename(
