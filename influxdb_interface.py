@@ -48,7 +48,7 @@ class Influx():
         result_set = client.query(q_str)
         return result_set
 
-    def get_deviceid_datapoint_count(self, fieldname, add_param):  # show in new readme
+    def get_deviceid_datapoint_count(self, fieldname, add_param):
         q_str = 'SELECT COUNT(value) FROM "%s" WHERE %s GROUP BY device_id' % (fieldname, add_param)
         client = self.client
         result_set = client.query(q_str)
