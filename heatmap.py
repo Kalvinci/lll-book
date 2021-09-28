@@ -40,7 +40,6 @@ def generate_linklab_heatmap(start_datetime, end_datetime, fields, export_filepa
 		map_img = mpimg.imread('./img/lll_grid.png')
 		heatmap = sns.heatmap(grid_df, linewidths=1, cmap="Reds", annot=True, fmt="d", alpha=0.8, zorder=2)
 		heatmap.imshow(map_img, aspect=heatmap.get_aspect(), extent=heatmap.get_xlim()+heatmap.get_ylim(), zorder=1)
-		field_str = ",".join(fields)
 		plt.title(f"LinkLab Heatmap [{start_datetime.date()} - {end_datetime.date()}]")
 		filepath = f"{export_filepath}/LinkLab_Heatmap_{start_datetime.date()}_{end_datetime.date()}.png"
 		plt.savefig(filepath)
